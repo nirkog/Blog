@@ -1,0 +1,14 @@
+body {
+	background-color: #FAFAFA;
+	font-family: 'Roboto';
+	text-align: center;
+}
+
+.main-header { 
+	font-size: 3.5em;
+	text-align: center;
+}
+
+.about-text {
+	font-size: 1.25em;
+}
