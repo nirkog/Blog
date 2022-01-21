@@ -1,6 +1,14 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+
+:root {
+  --main-bg-color: #FFF;
+  --font: 'Source sans pro', sans-serif;
+}
+
 body {
-	background-color: #FAFAFA;
-	font-family: 'Roboto';
+	background-color: var(--main-bg-color);
+	font-family: var(--font);
 	text-align: center;
 }
 
@@ -11,4 +19,78 @@ body {
 
 .about-text {
 	font-size: 1.25em;
+}
+
+ul {
+    padding:0;
+    list-style: none;
+}
+
+.footer-social-icons {
+    width: 350px;
+    display:block;
+    margin: 0 auto;
+}
+
+.social-icon {
+    color: #000;
+	background-color: #fff;
+}
+
+ul.social-icons {
+    margin-top: 10px;
+}
+
+.social-icons li {
+    vertical-align: top;
+    display: inline;
+    height: 100px;
+}
+
+.social-icons a {
+    color: #000;
+    text-decoration: none;
+	font-size: 1.5em;
+}
+
+.fa-github {
+    padding:10px 14px;
+    -o-transition:.5s;
+    -ms-transition:.5s;
+    -moz-transition:.5s;
+    -webkit-transition:.5s;
+    transition: .3s;
+    background-color: var(--main-bg-color);
+}
+
+.fa-github:hover {
+    background-color: #333;
+	color: var(--main-bg-color);
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+}
+
+.footer-list {
+	
+}
+
+.footer-item {
+	display: inline;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.footer-item-link {
+	text-decoration: none;
+	font-size: 1.125em;
+	font-weight: 400;
+	color: #111;
+}
+
+.footer-item-link:hover {
+	color: #333;
 }
