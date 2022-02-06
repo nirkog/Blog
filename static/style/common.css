@@ -1,0 +1,51 @@
+@import url(https://fonts.googleapis.com/css?family=Lato);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+
+:root {
+  --main-bg-color: #f8f8f8;
+  --font: 'Source sans pro', sans-serif;
+}
+
+body {
+	background-color: var(--main-bg-color);
+	font-family: var(--font);
+	display:flex; 
+  	flex-direction: column; 
+	height: 100vh;
+	margin: 0;
+	background-color: var(--main-bg-color);
+}
+
+footer {
+	/*position: fixed;
+	bottom: 0;
+	width: 100%;*/
+	margin-top: auto;
+	text-align: center;
+}
+
+.footer-list {
+	
+}
+
+.footer-item {
+	display: inline;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+
+.footer-item-link {
+	text-decoration: none;
+	font-size: 1.125em;
+	font-weight: 400;
+	color: #111;
+}
+
+.footer-item-link:hover {
+	color: #333;
+}
+
+ul {
+    padding:0;
+    list-style: none;
+}

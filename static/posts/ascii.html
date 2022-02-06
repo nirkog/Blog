@@ -1,0 +1,82 @@
+<h1>Ascii</h1>
+<span class="date">Feb 5, 2022</span>
+<h2>Introduction</h2>
+<p>A more difficult version of ascii_tiny that I've already done. The binary contains a very simple buffer overflow and the point of the challenge is very simple, the exploit can contain only ASCII characters (0x20-0x7f).</p>
+<h2>The binary</h2>
+<p>The program is quite simple and when you run it, it asks for some user inputs, and then prints something.</p>
+<img alt="ascii/first_run.PNG" src="image/posts/ascii/first_run.PNG" />
+<p>
+Just for fun, we can try to give a large input, and see what happens.
+</p>
+<img alt="ascii/first_overflow.PNG" src="image/posts/ascii/first_overflow.PNG" />
+<p>
+A segfault, so the vulnerability is probably a buffer overflow.</p>
+<h2>The vulnerability</h2>
+<p>I opened the program in IDA, and saw that the code was also very straight forward.</p>
+<pre><code class="hljs language-c">int main(int argc, const char **argv, const char **envp)
+{
+  uint8_t* v_char;
+  unsigned int v_buffer;
+  unsigned int v_counter;
+
+  v_buffer = mmap(0x80000000, 0x1000, 7, 0x32, -1, 0);
+  if ( v_buffer != 0x80000000 )
+  {
+    puts("mmap failed. tell admin");
+    exit(1);
+  }
+  printf("Input text : ");
+  v_counter = 0;
+  do
+  {
+    if ( v_counter > 399 )
+      break;
+    v_char = (uint8_t*)(v_buffer + v_counter);
+    *v_char = getchar();
+    ++v_counter;
+  }
+  while (is_ascii((char)*v_char));
+
+  puts("triggering bug...");
+  return (int)vuln();
+}
+</code></pre>
+<p>
+On start, the program allocates some RWX memory, and then reads from stdin, one byte at a time, into the buffer it allocated until it either read 400 bytes, or the input byte is not an alphanumerical ascii character, as we can see is defined in is_ascii.</p>
+<pre><code class="hljs language-c">bool is_ascii(int a1)
+{
+  return a1 > 0x1F && a1 <= 0x7F;
+}
+</pre></code>
+<p>Then, vuln is called, which seems to be the place that triggers the overflow.</p>
+<pre><code class="hljs language-c">char* vuln()
+{
+  char dest[168];
+
+  return strcpy(dest, (const char *)0x80000000);
+}
+</pre></code>
+<h2>Exploit Ideas</h2>
+<p>
+As we can see, the bug here is that the buffer can contain up to 400 characters and dest is only 168 bytes long. This means, we have a buffer overflow on the stack.
+<em>INSERT IDEAS</em>
+The way I decided to exploit this was to search for references to the input buffer on the stack, <em>Emphasize how this is done (overwriting EBP)</em> and using the vulnerability pivot the stack to point to it when main returns, and so get code execution, granted, our code can only be alphanumerical, which would prove to be a bit annoying 😜. Using gdb, I searched for a reference to the buffer, and found that there is one at $esp - 0x14, when main returns.</p>
+<img alt="gdb_buffer_reference.PNG" src="image/posts/ascii/gdb_buffer_reference.PNG" />
+<h2>Getting Code Execution</h2>
+<p>This means that if set ebp to be ebp - 0x14 when vuln returns we can jump to 0x80000000 (maybe explain this better). This is hard to execute because we don't know the value of ebp. What we can do is set the last byte to 4, since the last nibble is always 8, an hope that the original ebp ends in 0x18, hence we will achieve out 0x14 difference. This is also impossible, because strcpy also puts a null byte at the end of the destination buffer, which means we have to overwrite the last to bytes to be 0x0004. This reduces the chances of success drastically, but it should theoretically work about once every 4000 tries or so, which is acceptable I guess. In order to test this method I wrote a simple bash script that ran gdb a bunch of times with a payload that should overwrite ebp, and put a breakpoint at 0x80000000 and checked the output to see if the program reached our "code". This script took some time to run but at the end I saw this at the log file:
+</p>
+<img alt="gdb_initial_test_success" src="image/posts/ascii/gdb_initial_test_success.PNG" />
+<h2>Writing The Shellcode</h2>
+<p>
+Now that we have code execution, we need to have actual shellcode that will get us the flag. The obvious problem here is that our code has to be alphanumerical, which kind of sucks. I searched online for x86 alphanumerical shellcode and found something that looks pretty good. The problem was that it assumed it was running from the stack, so it was pushing the syscall instruction to the stack and executed it after the original code. The adjustment to our case is not too bad, we just to to point esp to somewhere in the buffer. I saw that when main returned ecx contained a pointer to the end of the input buffer, so I used it to put the stack there, and xored that value with some alphanumerical bytes to get the right value. Finally it worked when I debugged it.
+*Insert code and stuff*
+</p>
+<h2>Putting It All Together</h2>
+<p>
+Now, all that was left was to test this out. (Explain a bit further) After a lot of tinkering with testing scripts (which was tedious, due to the statistical nature of the exploit), I got the exploit to work locally!
+</p>
+<img alt="local_win" src="image/posts/ascii/local_win.PNG" />
+<p>
+I transferred the payload to the server and ran it in a loop, and after about 1000 runs I got the flag.
+</p>
+<img alt="win" src="image/posts/ascii/win.PNG" />

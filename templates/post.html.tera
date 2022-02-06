@@ -1,0 +1,14 @@
+{% extends "base" %}
+{% block title %}M'blog{% endblock title %}
+{% block head %}
+    {{ super() }}
+	<link rel="stylesheet" href="style/post.css" type="text/css" media="screen" charset="utf-8">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.4.0/build/styles/atom-one-dark.min.css">
+{% endblock head %}
+{% block body %}
+	<div id="post">
+		{{ post|safe }}
+	</div>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
+	<script>hljs.highlightAll();</script>
+{% endblock body %}

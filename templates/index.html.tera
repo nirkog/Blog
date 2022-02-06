@@ -1,0 +1,9 @@
+{% extends "base" %}
+{% block title %}M'blog{% endblock title %}
+{% block head %}
+    {{ super() }}
+	<link rel="stylesheet" href="style/index.css" type="text/css" media="screen" charset="utf-8">
+{% endblock head %}
+{% block body %}
+	<h1 class="main-header">MY BLOG</h1>
+{% endblock body %}
