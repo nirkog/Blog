@@ -1,0 +1,42 @@
+body {
+	text-align: center;
+	color: #000;
+}
+
+.post-list {
+	width: 30%;
+	margin: 0 auto;
+	text-align: left;
+}
+
+.post {
+	padding-bottom: 1.5rem;
+}
+
+.post-description {
+	font-family: charter, Georgia, Cambria, "Times New Roman", Times, serif;
+	font-size: 1.2rem;
+	padding-top: 0.8rem;
+	display: block;
+}
+
+.post-date {
+	font-size: 1rem;
+	color: #444;
+}
+
+.post-header {
+	margin-bottom: 0.4rem;
+	font-weight: 500;
+	font-size: 1.75rem;
+}
+
+.post-header a {
+	color: #282828;
+	text-decoration: none;
+	transition: all 0.3s;
+}
+
+.post-header a:hover {
+	background-color: #fff700;
+}
