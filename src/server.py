@@ -19,3 +19,9 @@ def test_post(name):
 @app.route("/posts")
 def posts():
     return render_template("posts.html")
+
+@app.route("/robots.txt")
+def robots():
+    with open("./static/robots.txt", "r") as f:
+        data = f.read()
+    return data
