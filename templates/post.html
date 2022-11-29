@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %}M'blog{% endblock title %}
+{% block title %}{{ title }}{% endblock title %}
 {% block head %}
     {{ super() }}
 	<link rel="stylesheet" href="{{ url_for('static', filename='style/post.css') }}" type="text/css" media="screen" charset="utf-8">
@@ -9,6 +9,7 @@
 	<div id="post">
 		{{ post|safe }}
 	</div>
+
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.4.0/highlight.min.js"></script>
 	<script>hljs.highlightAll();</script>
 {% endblock body %}

@@ -1,0 +1,24 @@
+#main {
+	text-align: center;
+}
+
+#fof {
+	font-size: 8rem;
+}
+
+#nav-bar {
+	display: none;
+}
+
+a {
+	font-family: var(--font);
+	font-size: 1.4rem;
+	color: black;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+a:hover {
+	color: #ccc;
+	transition: 0.13s;
+}

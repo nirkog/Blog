@@ -1,9 +1,10 @@
-@import url(https://fonts.googleapis.com/css?family=Lato);
-@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css);
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.css");
 
 :root {
   --main-bg-color: #f8f8f8;
-  --font: 'Source sans pro', sans-serif;
+  --font: "Charter", serif;
+  --sans-font: "Helvetica", sans-serif;
 }
 
 body {
@@ -16,36 +17,50 @@ body {
 	background-color: var(--main-bg-color);
 }
 
-footer {
-	/*position: fixed;
-	bottom: 0;
-	width: 100%;*/
-	margin-top: auto;
-	text-align: center;
+#frame {
+	width: 40%;
+	margin: 0 auto;
+	text-align: left;
 }
 
-.footer-list {
-	
+#nav-bar {
+	margin-top: 0;
+	margin-bottom: 3rem;
 }
 
-.footer-item {
+.nav-item {
 	display: inline;
-	padding-left: 25px;
-	padding-right: 25px;
+	padding-right: 3.0rem;
 }
 
-.footer-item-link {
+.nav-item-link {
 	text-decoration: none;
-	font-size: 1.125em;
-	font-weight: 400;
+	font-size: 1.3em;
 	color: #111;
+	font-weight: 500;
 }
 
-.footer-item-link:hover {
+.nav-item-link:hover {
 	color: #333;
+}
+
+.nav-list {
+	margin-top: 1.5rem;
+	margin-bottom: 1.5rem;
 }
 
 ul {
     padding:0;
     list-style: none;
+}
+
+.main-header {
+	font-size: 3.0rem;
+	font-weight: 400;
+}
+
+/* Controversial */
+h1 {
+	font-size: 3.0rem;
+	font-weight: 400;
 }

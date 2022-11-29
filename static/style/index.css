@@ -1,6 +1,42 @@
 body {
 	text-align: center;
+	color: #000;
 }
 
-h1 {
+.post-list {
+	margin: 0 auto;
+	text-align: left;
+}
+
+.post {
+	padding-bottom: 1.5rem;
+}
+
+.post-description {
+	font-size: 1.2rem;
+	padding-top: 0.8rem;
+	display: block;
+}
+
+.post-date {
+	font-size: 1rem;
+	color: #444;
+	/* font-family: -var(--sans-font); */
+	font-weight: 500;
+}
+
+.post-header {
+	margin-bottom: 0.4rem;
+	font-weight: 500;
+	font-size: 1.75rem;
+}
+
+.post-header a {
+	color: #282828;
+	text-decoration: none;
+	transition: all 0.3s;
+}
+
+.post-header a:hover {
+	background-color: #fff700;
 }
