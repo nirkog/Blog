@@ -2,6 +2,7 @@ import os
 import json5
 from flask import Flask
 from flask import render_template
+from flask import send_file
 
 app = Flask(__name__, template_folder=os.path.abspath("./templates/"), static_folder=os.path.abspath("./static/"))
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -33,3 +34,7 @@ def robots():
     with open("./static/robots.txt", "r") as f:
         data = f.read()
     return data
+
+@app.route("/favicon.ico")
+def favicon():
+    return send_file("../static/images/favicon.ico")
