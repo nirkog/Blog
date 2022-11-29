@@ -1,8 +1,7 @@
 import os
 import json5
 from flask import Flask
-from flask import render_template
-from flask import send_file
+from flask import render_template, send_file, abort
 
 app = Flask(__name__, template_folder=os.path.abspath("./templates/"), static_folder=os.path.abspath("./static/"))
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -27,7 +26,7 @@ def post(name):
                 title=posts[name]["title"]
                 )
     else:
-        return render_template("404.html")
+        abort(404)
 
 @app.route("/robots.txt")
 def robots():
@@ -38,3 +37,7 @@ def robots():
 @app.route("/favicon.ico")
 def favicon():
     return send_file("../static/images/favicon.ico")
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
