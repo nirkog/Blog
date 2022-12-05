@@ -10,17 +10,31 @@
     {% endblock head %}
 </head>
 <body>
-	<div id="frame">
+	<div id="wrapper">
 		<div id="nav-bar">
 			<ul class="nav-list">
 				<li class="nav-item"><a href="/" class="nav-item-link">Home</a></li>
 				<li class="nav-item"><a href="/about" class="nav-item-link">About</a></li>
 			</ul>
-			<hr>
+			<hr id="nav-rule">
 		</div>
 		
-		{% block body %}
-		{% endblock body %}
+		<div id="frame">
+			<div id="inner-body">
+				{% block body %}
+				{% endblock body %}
+			</div>
+		</div>
 	</div>
+
+	<script>
+		const nav_rule = document.querySelector("#nav-rule");
+		document.addEventListener("scroll", (e) => {
+			let base_width = getComputedStyle(document.documentElement).getPropertyValue("--frame-width");
+			base_width = parseInt(base_width.substring(0, base_width.length - 1));
+			const width = Math.min(99.5, window.scrollY / 10 + base_width);
+			nav_rule.style.width = width + "%";
+		});
+	</script>
 </body>
 </html>
